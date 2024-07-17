@@ -83,7 +83,7 @@ const useMakeRequest = (endpoint) => {
   useEffect(() => {
     const asyncFunc = async () => {
       try {
-        const response = await fetch(endpoint);
+        // const response = await fetch(endpoint);
 
         setResult((old) => ({ ...old, data: json }));
       } catch (error) {

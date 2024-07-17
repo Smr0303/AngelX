@@ -10,13 +10,22 @@ const Home = () => {
 
   useEffect(() => {
     if (data) {
-      setProducts(data);
+      const cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
+      const filteredProducts = data.filter(product => !cartItems.includes(product.id));
+      setProducts(filteredProducts);
     }
   }, [data]);
 
   const handleAddToCart = (productId) => {
 
-    setProducts(products.filter(product => product.id !== productId));
+    const updatedProducts = products.filter(product => product.id !== productId);
+    setProducts(updatedProducts);
+
+    // Save the updated cart items to local storage
+    const cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
+    cartItems.push(productId);
+    localStorage.setItem('cartItems', JSON.stringify(cartItems));
+
   };
 
   if (!data) {
